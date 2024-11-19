@@ -1,0 +1,2 @@
+SpiceWars.SpiceWarsWindow, Text: Spice Wars 
+

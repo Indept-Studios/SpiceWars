@@ -1,0 +1,20 @@
+﻿Destinations
+0 - Köln
+1 - Leverkusen
+2 - Kerpen
+3 - Brühl 
+4 - Frankfurt
+
+StockItems
+0 - Product A
+1 - Product B
+2 - Product C
+3 - Product D
+4 - Product E
+
+PlayerStockItems
+0 - Product A
+1 - Product B
+2 - Product C
+3 - Product D
+4 - Product E

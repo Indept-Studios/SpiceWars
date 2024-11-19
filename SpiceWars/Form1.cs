@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SpiceWars
@@ -14,54 +7,113 @@ namespace SpiceWars
     {
         int[] playerStock = new int[5];
 
-        string[] goods = new string[] { "Product A", "Product B", "Product C", "Product D", "Product E" };
-        Harbor[] destinations = new Harbor[5];
+        Harbor[] destination = Manager.FillPorts();
 
-        int money = 100;
+        int currentLocation = 0;
 
-        /// <summary>
-        /// Konstruktor
-        /// </summary>
         public SpiceWarsWindow()
         {
             InitializeComponent();
-            destinations = InitGame();
-
-            for (int i = 0; i < goods.Length; i++)
-            {
-                goodiesBox.Items.Add(destinations[i].stock[i] + " - " + goods[i]);
-                stockBox.Items.Add(playerStock[i] + " - " + goods[i]);
-                destinationBox.Items.Add(destinations[i].Name);
-            }
-            currentLabel.Text = destinations[0].Name;
-            moneyLabel.Text = "Goldbestand: " + money.ToString();
+            UpdateGUI();
+            currentLabel.Text = destination[currentLocation].Name;
         }
 
-        
-
-        private void goodiesBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
+        // SailBtn Clickevent, set the new destination from DESTINATIONBOX_INDEX
         private void SailBtn_Click(object sender, EventArgs e)
         {
-            if (currentLabel.Text != destinationBox.SelectedItem.ToString())
+            try
             {
-                currentLabel.Text = destinationBox.SelectedItem.ToString();
+                if (currentLabel.Text != destinationBox.SelectedItem.ToString())
+                {
+                    currentLabel.Text = destinationBox.SelectedItem.ToString();
+                    Manager.GetProductPriceValue(destination[currentLocation].goods);
+                    currentLocation = destinationBox.SelectedIndex;
+                    Config.Default.playerMoney -= 2;
+                    UpdateGUI();
+                }
+                else
+                {
+
+                }
             }
-            else
+            catch (Exception)
             {
-
+                valueBox.Clear();
+                statusBox.Items.Add("Nicht genügend Geld zum Segeln vorhanden!");
             }
-
+           
         }
 
-        private Harbor[] InitGame()
+        // BuyBtn Clickevent, Adds and Substract the Value from the stocks
+        private void BuyBtn_Click(object sender, EventArgs e)
         {
-            Harbor[] harbors = new Harbor[] { new Harbor("Köln"), new Harbor("Leverkusen"), new Harbor("Kerpen"), new Harbor("Brühl"), new Harbor("Frankfurt") };
+            // Abprüfen ob genügend vorhanden
+            try
+            {
+                if (destination[currentLocation].stock[goodiesBox.SelectedIndex] >= int.Parse(valueBox.Text) &&
+                    (int.Parse(valueBox.Text) * destination[goodiesBox.SelectedIndex].goods[goodiesBox.SelectedIndex].Price <= Config.Default.playerMoney))
+                {
+                    Config.Default.playerMoney -= (int.Parse(valueBox.Text) * destination[goodiesBox.SelectedIndex].goods[goodiesBox.SelectedIndex].Price);
+                    playerStock[goodiesBox.SelectedIndex] += int.Parse(valueBox.Text);
+                    destination[currentLocation].stock[goodiesBox.SelectedIndex] -= int.Parse(valueBox.Text);
+                    UpdateGUI();
+                }
+                else
+                {
+                    valueBox.Clear();
+                    statusBox.Items.Add("Nicht genügend Stoff vorhanden!");
+                }
+            }
+            catch (Exception)
+            {
+                valueBox.Clear();
+                statusBox.Items.Add("Bitte nur Zahlen angeben!");
+            }
+        }
 
-            return harbors;
+        // SellBtn Clickevent, Adds and Substract the Value from the stocks
+        private void SellBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (playerStock[stockBox.SelectedIndex] >= int.Parse(valueBox.Text))
+                {
+                    Config.Default.playerMoney += (int.Parse(valueBox.Text) * destination[stockBox.SelectedIndex].goods[stockBox.SelectedIndex].Price);
+                    playerStock[stockBox.SelectedIndex] -= int.Parse(valueBox.Text);
+                    destination[currentLocation].stock[stockBox.SelectedIndex] += int.Parse(valueBox.Text);
+                    UpdateGUI();
+                }
+                else
+                {
+                    valueBox.Clear();
+                    statusBox.Items.Add("Nicht genügend Stoff an Bord!");
+                }
+
+            }
+            catch (Exception)
+            {
+                valueBox.Clear();
+                statusBox.Items.Add("Bitte nur Zahlen angeben!");
+            }
+        }
+
+        // Updates all TEXTBOXES and the VALUEBOX and the MONEY string
+        private void UpdateGUI()
+        {
+            this.
+            valueBox.Clear();
+            statusBox.Items.Clear();
+            stockBox.Items.Clear();
+            goodiesBox.Items.Clear();
+            destinationBox.Items.Clear();
+            for (int i = 0; i < destination.Length; i++)
+            {
+                stockBox.Items.Add(playerStock[i] + " - " + destination[currentLocation].goods[i].Name);
+                goodiesBox.Items.Add($"{destination[currentLocation].stock[i]} -{destination[currentLocation].goods[i].Price} - {destination[i].goods[i].Name}");
+                destination[i].stock[i].ToString();
+                destinationBox.Items.Add(destination[i].Name);
+            }
+            moneyLabel.Text = "Goldbestand: " + Config.Default.playerMoney.ToString();
         }
     }
 }

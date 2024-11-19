@@ -32,7 +32,7 @@ namespace SpiceWars
             this.stockBox = new System.Windows.Forms.ListBox();
             this.destinationBox = new System.Windows.Forms.ListBox();
             this.SailBtn = new System.Windows.Forms.Button();
-            this.ValueBox = new System.Windows.Forms.TextBox();
+            this.valueBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -41,6 +41,7 @@ namespace SpiceWars
             this.currentLabel = new System.Windows.Forms.Label();
             this.goodiesBox = new System.Windows.Forms.ListBox();
             this.moneyLabel = new System.Windows.Forms.Label();
+            this.statusBox = new System.Windows.Forms.StatusStrip();
             this.SuspendLayout();
             // 
             // stockBox
@@ -57,7 +58,7 @@ namespace SpiceWars
             // 
             this.destinationBox.FormattingEnabled = true;
             this.destinationBox.ItemHeight = 15;
-            this.destinationBox.Location = new System.Drawing.Point(12, 284);
+            this.destinationBox.Location = new System.Drawing.Point(12, 271);
             this.destinationBox.MultiColumn = true;
             this.destinationBox.Name = "destinationBox";
             this.destinationBox.Size = new System.Drawing.Size(144, 154);
@@ -73,12 +74,12 @@ namespace SpiceWars
             this.SailBtn.UseVisualStyleBackColor = true;
             this.SailBtn.Click += new System.EventHandler(this.SailBtn_Click);
             // 
-            // ValueBox
+            // valueBox
             // 
-            this.ValueBox.Location = new System.Drawing.Point(212, 63);
-            this.ValueBox.Name = "ValueBox";
-            this.ValueBox.Size = new System.Drawing.Size(100, 23);
-            this.ValueBox.TabIndex = 4;
+            this.valueBox.Location = new System.Drawing.Point(212, 63);
+            this.valueBox.Name = "valueBox";
+            this.valueBox.Size = new System.Drawing.Size(100, 23);
+            this.valueBox.TabIndex = 4;
             // 
             // label1
             // 
@@ -115,6 +116,7 @@ namespace SpiceWars
             this.BuyBtn.TabIndex = 8;
             this.BuyBtn.Text = "Kaufen >>>";
             this.BuyBtn.UseVisualStyleBackColor = true;
+            this.BuyBtn.Click += new System.EventHandler(this.BuyBtn_Click);
             // 
             // SellBtn
             // 
@@ -124,6 +126,7 @@ namespace SpiceWars
             this.SellBtn.TabIndex = 9;
             this.SellBtn.Text = "<<< Verkaufen";
             this.SellBtn.UseVisualStyleBackColor = true;
+            this.SellBtn.Click += new System.EventHandler(this.SellBtn_Click);
             // 
             // currentLabel
             // 
@@ -142,7 +145,6 @@ namespace SpiceWars
             this.goodiesBox.Name = "goodiesBox";
             this.goodiesBox.Size = new System.Drawing.Size(144, 154);
             this.goodiesBox.TabIndex = 11;
-            this.goodiesBox.SelectedIndexChanged += new System.EventHandler(this.goodiesBox_SelectedIndexChanged);
             // 
             // moneyLabel
             // 
@@ -153,11 +155,20 @@ namespace SpiceWars
             this.moneyLabel.TabIndex = 12;
             this.moneyLabel.Text = "money";
             // 
+            // statusBox
+            // 
+            this.statusBox.Location = new System.Drawing.Point(0, 428);
+            this.statusBox.Name = "statusBox";
+            this.statusBox.Size = new System.Drawing.Size(800, 22);
+            this.statusBox.TabIndex = 13;
+            // 
             // SpiceWarsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.statusBox);
             this.Controls.Add(this.moneyLabel);
             this.Controls.Add(this.goodiesBox);
             this.Controls.Add(this.currentLabel);
@@ -166,7 +177,7 @@ namespace SpiceWars
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.ValueBox);
+            this.Controls.Add(this.valueBox);
             this.Controls.Add(this.SailBtn);
             this.Controls.Add(this.destinationBox);
             this.Controls.Add(this.stockBox);
@@ -181,7 +192,7 @@ namespace SpiceWars
         private System.Windows.Forms.ListBox stockBox;
         private System.Windows.Forms.ListBox destinationBox;
         private System.Windows.Forms.Button SailBtn;
-        private System.Windows.Forms.TextBox ValueBox;
+        private System.Windows.Forms.TextBox valueBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -190,6 +201,7 @@ namespace SpiceWars
         private System.Windows.Forms.Label currentLabel;
         private System.Windows.Forms.ListBox goodiesBox;
         private System.Windows.Forms.Label moneyLabel;
+        private System.Windows.Forms.StatusStrip statusBox;
     }
 }
 

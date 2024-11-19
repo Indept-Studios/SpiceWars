@@ -1,0 +1,17 @@
+﻿Wertigkeiten für Items													done
+Abzug der Wertigkeiten beim Kauf										done
+Prüfen ob genügend Gold vorhanden										done
+Abzug für Liegegebühren													done
+Events (Piraten, Schiffkaputt, Waren verotten, etc)
+
+
+Laderaumbegrenzung (Säcke)
+Produkte haben Tonnage
+Saubere Verteilung der Methoden auf Klassen								halbwegsdone
+
+Items im Stock nicht random sondern verbrauch nach Zeit
+Items im Stock nicht random sondern zuwachs auf Zeit
+
+Neue schiffstypen kaufen
+Laderaumerweiterung
+Reperaturdock

@@ -9,18 +9,16 @@ namespace SpiceWars
     class Harbor
     {
         public string Name { get; private set; }
-        public string[] goods = new string[] { "Product A", "Product B", "Product C", "Product D", "Product E" };
-        public int[] stock = new int[5];
 
-        public Random rnd = new Random();
-        
+        public Product[] goods;
+        public int[] stock = new int[Config.Default.productCount];
+
         public Harbor(string name)
         {
             Name = name;
-            for (int i = 0; i < stock.Length; i++)
-            {
-                stock[i] = rnd.Next(0, 51);
-            }
+            goods = Manager.FillGoods();
+            stock = Manager.GetStockValue(stock);
+            Manager.GetProductPriceValue(goods);
         }
     }
 }
